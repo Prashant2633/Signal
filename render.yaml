@@ -13,7 +13,7 @@ services:
       - key: DATABASE_URL
         value: sqlite:////data/signal.db   # Persistent disk path (see disk below)
       - key: CORS_ORIGINS
-        sync: false                  # Set this manually in the Render dashboard after frontend is deployed
+        value: "https://signal-sand-iota.vercel.app"
     disk:
       name: signal-db
       mountPath: /data               # SQLite lives at /data/signal.db on this disk
