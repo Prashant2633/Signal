@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useToasts } from "@/lib/ui";
 import type { Message } from "@/lib/types";
-import { convDisplay, formatDayLabel, lastSeenText, otherMember } from "@/lib/utils";
+import { convDisplay, formatDayLabel, lastSeenText, otherMember, parseDate } from "@/lib/utils";
 import Avatar from "./Avatar";
 import MessageBubble from "./MessageBubble";
 import MessageInput from "./MessageInput";
@@ -130,7 +130,7 @@ export default function ChatPane({ onBack }: Props) {
           {messages?.map((m, i) => {
             const prev = messages[i - 1];
             const showDay =
-              !prev || new Date(prev.created_at).toDateString() !== new Date(m.created_at).toDateString();
+              !prev || parseDate(prev.created_at).toDateString() !== parseDate(m.created_at).toDateString();
             const showSender = !prev || prev.sender_id !== m.sender_id || prev.type === "system";
             return (
               <div key={m.id}>

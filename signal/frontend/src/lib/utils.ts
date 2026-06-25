@@ -7,14 +7,29 @@ export function initials(name: string): string {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
+export function parseDate(iso: string | Date | number | null | undefined): Date {
+  if (!iso) return new Date();
+  if (iso instanceof Date) return iso;
+  if (typeof iso === "number") return new Date(iso);
+  
+  let cleanIso = iso;
+  if (typeof cleanIso === "string") {
+    if (!cleanIso.endsWith("Z") && !/[+-]\d{2}:?\d{2}$/.test(cleanIso)) {
+      cleanIso = cleanIso.replace(" ", "T");
+      cleanIso += "Z";
+    }
+  }
+  return new Date(cleanIso);
+}
+
 /** Short time like "9:41 AM". */
 export function formatTime(iso: string): string {
-  return new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  return parseDate(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
 
 /** Conversation-list timestamp: time today, "Yesterday", weekday, or date. */
 export function formatListTime(iso: string): string {
-  const d = new Date(iso);
+  const d = parseDate(iso);
   const now = new Date();
   const sameDay = d.toDateString() === now.toDateString();
   if (sameDay) return formatTime(iso);
@@ -28,7 +43,7 @@ export function formatListTime(iso: string): string {
 
 /** Day separator label inside the chat ("Today", "Yesterday", full date). */
 export function formatDayLabel(iso: string): string {
-  const d = new Date(iso);
+  const d = parseDate(iso);
   const now = new Date();
   if (d.toDateString() === now.toDateString()) return "Today";
   const yesterday = new Date(now);
@@ -41,7 +56,7 @@ export function formatDayLabel(iso: string): string {
 export function lastSeenText(user: User): string {
   if (user.is_online) return "online";
   if (!user.last_seen) return "offline";
-  const diff = Date.now() - new Date(user.last_seen).getTime();
+  const diff = Date.now() - parseDate(user.last_seen).getTime();
   const mins = Math.floor(diff / 60000);
   if (mins < 1) return "last seen just now";
   if (mins < 60) return `last seen ${mins}m ago`;

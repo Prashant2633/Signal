@@ -4,7 +4,8 @@
 import { create } from "zustand";
 import { api } from "./api";
 import type { Conversation, Message, User } from "./types";
-import { SignalSocket, WsEvent } from "./ws";
+import { parseDate } from "./utils";
+
 
 interface State {
   me: User | null;
@@ -185,7 +186,7 @@ export const useStore = create<State>((set, get) => ({
 
 function sortConvs(convs: Conversation[]): Conversation[] {
   return [...convs].sort(
-    (a, b) => new Date(b.last_message_at).getTime() - new Date(a.last_message_at).getTime()
+    (a, b) => parseDate(b.last_message_at).getTime() - parseDate(a.last_message_at).getTime()
   );
 }
 
@@ -254,13 +255,13 @@ function applyReceipt(set: SetFn, get: () => State, e: any) {
   set((s) => {
     const list = s.messages[convId];
     if (!list || !me) return {};
-    const upTo = e.up_to ? new Date(e.up_to).getTime() : null;
+    const upTo = e.up_to ? parseDate(e.up_to).getTime() : null;
     const next = list.map((m) => {
       if (m.sender_id !== me.id) return m;
       if (e.message_id && m.id !== e.message_id) {
         // single-message delivered ack
       }
-      const inRange = e.status === "read" && upTo ? new Date(m.created_at).getTime() <= upTo : true;
+      const inRange = e.status === "read" && upTo ? parseDate(m.created_at).getTime() <= upTo : true;
       if (e.message_id && m.id === e.message_id && e.status === "delivered") {
         return m.status === "read" ? m : { ...m, status: "delivered" as const };
       }
