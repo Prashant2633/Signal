@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: signal-clone-api
+    name: signal-api
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt && python -m app.seed

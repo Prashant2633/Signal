@@ -11,7 +11,7 @@ from .routers import auth, conversations, messages, users, ws
 # Create tables on startup (SQLite). For a real project this would be Alembic.
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Signal Clone API", version="1.0.0")
+app = FastAPI(title="Signal API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,4 +30,4 @@ app.include_router(ws.router)
 
 @app.get("/health", tags=["meta"])
 def health():
-    return {"status": "ok", "service": "signal-clone-api"}
+    return {"status": "ok", "service": "signal-api"}

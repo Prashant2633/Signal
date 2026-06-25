@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Signal",
-  description: "A privacy-focused secure messenger — Signal clone.",
+  description: "A privacy-focused secure messaging platform.",
 };
 
 export const viewport: Viewport = {

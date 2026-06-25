@@ -1,6 +1,6 @@
-# Signal Clone — Secure Messaging Platform
+# Signal - Secure Messaging Platform
 
-A functional clone of the Signal messenger that recreates Signal's look, feel and
+A secure messaging platform that recreates Signal's look, feel and
 core messaging workflows: mocked phone/username onboarding, contacts, 1:1 and
 group conversations, and **real-time** messaging with typing indicators, presence
 and delivery/read receipts.
