@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: signal-clone-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python -m app.seed
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true          # Render auto-generates a secure random value
+      - key: MOCK_OTP
+        value: "123456"
+      - key: DATABASE_URL
+        value: sqlite:////data/signal.db   # Persistent disk path (see disk below)
+      - key: CORS_ORIGINS
+        sync: false                  # Set this manually in the Render dashboard after frontend is deployed
+    disk:
+      name: signal-db
+      mountPath: /data               # SQLite lives at /data/signal.db on this disk
+      sizeGB: 1
