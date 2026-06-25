@@ -1,4 +1,4 @@
-# Signal — Secure Messaging Platform
+# Signal - Secure Messaging Platform
 
 <div align="center">
 
