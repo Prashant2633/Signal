@@ -1,5 +1,19 @@
 # Signal Clone — Secure Messaging Platform
 
+<div align="center">
+
+### 🚀 [**Try the Live Demo →**](https://signal-sand-iota.vercel.app)
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-signal--sand--iota.vercel.app-blue?style=for-the-badge&logo=vercel)](https://signal-sand-iota.vercel.app)
+[![Backend](https://img.shields.io/badge/Backend-Render-purple?style=for-the-badge&logo=render)](https://signal-him9.onrender.com/health)
+
+> **Demo credentials** — Username: `alice` · OTP: `123456`  
+> (also try `bob`, `carol`, `dave`, `erin` — open two tabs to see real-time messaging!)
+
+</div>
+
+---
+
 A functional clone of the Signal messenger that recreates Signal's look, feel and
 core messaging workflows: mocked phone/username onboarding, contacts, 1:1 and
 group conversations, and **real-time** messaging with typing indicators, presence
