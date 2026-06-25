@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Theme tokens (RGB triplets so Tailwind alpha works) ---- */
+:root {
+  --bg: 255 255 255;
+  --panel: 247 247 248;
+  --elevated: 255 255 255;
+  --border: 229 231 235;
+  --ink: 23 24 28;
+  --muted: 107 114 128;
+  --bubble-in: 233 234 237;   /* received bubble (light grey) */
+  --bubble-out: 44 107 237;   /* sent bubble (Signal blue)   */
+}
+
+.dark {
+  --bg: 23 25 33;             /* Signal deep navy */
+  --panel: 28 30 39;
+  --elevated: 38 41 54;
+  --border: 49 53 68;
+  --ink: 240 241 244;
+  --muted: 150 156 170;
+  --bubble-in: 48 52 66;
+  --bubble-out: 44 107 237;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin, unobtrusive scrollbars like Signal Desktop */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--border)) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--border));
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Subtle chat wallpaper texture for the message pane */
+.chat-canvas {
+  background-color: rgb(var(--bg));
+  background-image: radial-gradient(
+    rgb(var(--border) / 0.35) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgb(var(--muted));
+  animation: typing 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
